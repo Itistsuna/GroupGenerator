@@ -11,14 +11,17 @@ app.use(
         extended: true,
     })
 );
+async function connect(){
+    await client.connect()
+}
 
+connect()
 // REQUETE POST  STUDENTS ---------------------------------------------------------------------------------->
 
 app.post("/students", (req, res) => {
     async function post() {
         try {
             var data = req.body;
-            await client.connect();
             data.name.forEach((element) => {
                 envoie = {
                     name: element,
@@ -32,13 +35,28 @@ app.post("/students", (req, res) => {
     post();
     res.send("Recues");
 });
+// REQUETE GET STUDENTS:name ----------------------------------------------------------------------------->
+
+app.get('/students/:name', (req, res) => {
+    async function get(){
+        try {
+            let id = req.params.name
+            console.log(id)
+            let etudiant = await client.db('GroupGenerator').collection('Students').find({name : id}).toArray()
+            res.send(etudiant)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    get();
+})
+
 
 // REQUETE GET STUDENTS ---------------------------------------------------------------------------------->
 
 app.get("/students", (req, res) => {
     async function get() {
         try {
-            await client.connect();
             let etudiants = await client
                 .db("GroupGenerator")
                 .collection("Students")
@@ -52,11 +70,25 @@ app.get("/students", (req, res) => {
 
     get();
 });
+// REQUETE DELETE STUDENTS:name ----------------------------------------------------------------------->
+
+app.delete('/students/:name', (req,res)=>{
+    async function effacer(){
+        try {
+            let id = req.params.name
+            await client.db('GroupGenerator').collection('Students').deleteMany({name: id})
+            res.send(`C'est terminé ! ${id} !`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    effacer()
+})
+
 // REQUETE DELETE STUDENTS ---------------------------------------------------------------------------->
 app.delete("/students", (req, res) => {
     async function effaccer() {
         try {
-            await client.connect();
             let student = await client
                 .db("GroupGenerator")
                 .collection("Students")
@@ -79,7 +111,6 @@ app.post("/groups", (req, res) => {
     async function post() {
         try {
             var data = req.body;
-            await client.connect();
             client.db("GroupGenerator").collection("Groups").insertOne(data);
         } catch (e) {
             console.log(e);
@@ -94,7 +125,6 @@ app.post("/groups", (req, res) => {
 app.get("/groups", (req, res) => {
     async function get() {
         try {
-            await client.connect();
             let group = await client
                 .db("GroupGenerator")
                 .collection("Groups")
@@ -114,7 +144,6 @@ app.get("/groups", (req, res) => {
 app.get("/groups/:grName", (req, res) => {
     async function get() {
         try {
-            await client.connect();
             let id = req.params.grName;
             console.log(id);
             let groupe = await client
@@ -141,7 +170,6 @@ app.get("/groups/:grName", (req, res) => {
 app.delete("/groups", (req, res) => {
     async function effaccer() {
         try {
-            await client.connect();
             let group = await client
                 .db("GroupGenerator")
                 .collection("Groups")
@@ -163,7 +191,6 @@ app.delete("/groups", (req, res) => {
 app.delete("/groups/:name", (req, res) => {
     async function effaccer() {
         try {
-            await client.connect();
             var id = req.params.name;
             let group = await client
                 .db("GroupGenerator")
