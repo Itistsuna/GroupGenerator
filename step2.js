@@ -8,31 +8,66 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // REQUETE POST ----------------------------------------------------------------------------------
-app.post('/students', (req,res)=>{
-    async function post(){
+app.post('/students', (req, res) => {
+    async function post() {
         try {
             var data = req.body
-            await client.connect() 
+            await client.connect()
             data.name.forEach(element => {
                 console.log(element)
-                envoie = {name: element}
+                envoie = { name: element }
                 console.log(envoie)
-                client.db('GroupGenerator').collection('Students').insertOne(envoie) 
+                client.db('GroupGenerator').collection('Students').insertOne(envoie)
             });
-        }catch(e){
+        } catch (e) {
             console.log(e)
-        }finally{
+        } finally {
             await client.close()
         }
-    }    
+    }
     post()
     res.send('Recues')
 })
 
 // REQUETE GET ----------------------------------------------------------------------------------
 
+app.get('/students', (req, res) => {
+    async function get() {
+        try {
+            await client.connect()
+            let etudiants = await client.db('GroupGenerator').collection('Students').find().toArray()
+            res.json(etudiants)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            await client.close()
+        }
+    }
+
+    get()
 
 
-app.listen(3000, function() {
+
+})
+// REQUETE DELETE ---------------------------------------------------------------------------->
+app.delete('/students', (req,res) => {
+    async function effaccer() {
+        try{
+            await client.connect()
+            let student = await client.db('GroupGenerator').collection('Students').deleteMany(student)
+            res.send('cest bien effacer')
+
+        } catch(e){
+            console.log(e)
+
+        }
+        finally{
+            await client.close();
+        }
+    }
+    effaccer()
+})
+
+app.listen(3000, function () {
     console.log('listening on 3000')
 })
