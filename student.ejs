@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group Generator : Liste d'étudiants</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link
+      href="https://fr.allfont.net/allfont.css?fonts=comic-sans-ms"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Group Generator</h1>
+      <div class="ancre">
+        <a href="/students">Etudiants</a>
+        <a href="/groups">Groupes</a>
+      </div>
+    </div>
+    <h2>Liste d'étudiants</h2>
+      <ul>
+        <% students[0].forEach(element => { %>
+          <li><%- element.name%></li>
+      <% }); %>
+      </ul>
+    <form action="/students" method="post">
+      <input type="text" name="name" placeholder="Veuillez écrire un nom" />
+      <input type="submit" value="Ajouter" />
+    </form>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+*{
+    font-family: 'Comic Sans MS', arial;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #BBCE6A;
+    
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+    font-size: 30px;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    a{
+        
+        display: flex;
+        justify-content: space-evenly;
+        color: black;
+        text-decoration: none;
+    }
+}
+
+li{
+    display: block;
+    width: 40%;
+    height: 30px;
+    background:  #7D91AC;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px auto;
+    list-style-type: none;
+    text-align: center;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+input{
+    margin: 0 35%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    order: 2;
+    width: 30%;
+    height: 50px;
+}

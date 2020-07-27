@@ -1,0 +1,77 @@
+* {
+  font-family: 'Comic Sans MS', arial;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: #BBCE6A;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  color: black;
+  text-decoration: none;
+}
+
+li {
+  display: block;
+  width: 40%;
+  height: 30px;
+  background: #7D91AC;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px auto;
+  list-style-type: none;
+  text-align: center;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: auto;
+}
+
+input {
+  margin: 0 35%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  width: 30%;
+  height: 50px;
+}
+/*# sourceMappingURL=style.css.map */
