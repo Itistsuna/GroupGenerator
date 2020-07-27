@@ -10,8 +10,6 @@ const bodyParser = require('body-parser');
 const {
     response
 } = require('express');
-app.use(express.urlencoded());
-app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -62,8 +60,6 @@ app.post("/students", (req, res) => {
             students[0].push({
                 name: req.body.name.toUpperCase()
             })
-            console.log(students)
-            console.log(data)
             await client.db("GroupGenerator").collection("Students").insertOne(data);
             const template = fs.readFileSync('./student.ejs', 'utf-8')
             var html = ejs.render(template, {
@@ -102,9 +98,8 @@ app.post('/groups', (req, res) => {
         }
     }
     let NGroupe = new GROUPE
-    console.log(NGroupe)
 })
 
 app.listen(3000, function () {
-    console.log('listening on 3000')
+    console.log('listening on port 3000')
 })

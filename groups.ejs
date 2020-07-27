@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Group Generator : Liste de groupes</title>
     <link rel="stylesheet" href="style.css" type="text/css" />
-    <link
-      href="https://fr.allfont.net/allfont.css?fonts=comic-sans-ms"
-      rel="stylesheet"
-      type="text/css"
-    />
   </head>
 
   <body>
@@ -21,17 +16,19 @@
         <a href="/groups">Groupes</a>
       </div>
     </div>
-    <h2>Liste de groupes</h2>
-    <ul>
-      <% groupe[0].forEach(element => { %>
-        <li><%- element.name%></li>
-    <% }); %>
-    </ul>
-    <form action="/groups" method="post">
-      <label for="groupe"></label>
-      <input type="text" name="grpName" placeholder="Nom du projet">
-      <input type="number" name="nbrPersonnes" placeholder="Nombres des membres" />
-      <input type="submit" value="Ajouter" />
-    </form>
+    <div class="box">
+      <h2>Liste de groupes</h2>
+      <ul>
+        <% groupe[0].forEach(element => { %>
+          <li><%- element.name%></li>
+      <% }); %>
+      </ul>
+      <form action="/groups" method="post">
+        <label for="groupe"></label>
+        <input type="text" name="grpName" placeholder="Nom du projet">
+        <input type="number" name="nbrPersonnes" placeholder="Nombres des membres" />
+        <input type="submit" value="Ajouter" />
+      </form>
+    </div>
   </body>
 </html>
