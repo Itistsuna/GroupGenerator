@@ -23,8 +23,30 @@ async function data() {
         const jsonStudents = await responseStudents.json()
         const responseGroupe = await fetch('http://localhost:8080/groups')
         const jsonGroupe = await responseGroupe.json()
+       
+            for (i=0; i < jsonStudents.length; i++) {
+                console.log(jsonGroupe[i]["name"])
+
+                if(jsonStudents[i].name == jsonGroupe[i].name[0]){
+                    console.log(jsonGroupe[i].name + " " + jsonStudents[i].name);
+                    console.log(i);
+                    jsonStudents.splice(i, 1)
+                    // console.log(jsonStudents);
+
+
+                }
+                if (jsonStudents.name[0] == jsonGroupe[i].name[1]) {
+
+                }
+
+            }
+            console.log(jsonStudents)
+
+
+     
         students.push(jsonStudents)
         groupe.push(jsonGroupe)
+
     } catch (e) {
         console.log(e)
     }
