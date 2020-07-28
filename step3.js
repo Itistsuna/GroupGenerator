@@ -2,48 +2,48 @@ const express = require('express')
 const app = express()
 const ejs = require('ejs')
 const fs = require('fs')
-const MongoClient = require("mongodb").MongoClient;
-const client = new MongoClient("mongodb://127.0.0.1:27017", {
-    useUnifiedTopology: true,
-});
+const fetch = require('node-fetch')
 const bodyParser = require('body-parser');
-const {
-    response
-} = require('express');
+const { json } = require('body-parser')
 app.use(express.static(__dirname + '/static'));
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
+app.use(express.json())
+app.use(express.urlencoded({
     extended: true
 }))
 const students = []
 const groupe = []
 
-
-
-// REQUETE MONGODB DONNEE  ---------------------------------------------------------------------------------------->
-async function connect() {
-    await client.connect()
-}
-connect()
+// REQUETE DATA ------------------------------------------------------------------------------------->
 
 async function data() {
-    var etudiants = await client.db('GroupGenerator').collection('Students').find().toArray()
-    students.push(etudiants)
-    var groups = await client.db('GroupGenerator').collection('Groups').find().toArray()
-    groupe.push(groups)
+    try {
+        const responseStudents = await fetch('http://localhost:8080/students')
+        const jsonStudents = await responseStudents.json()
+        const responseGroupe = await fetch('http://localhost:8080/groups')
+        const jsonGroupe = await responseGroupe.json()
+        students.push(jsonStudents)
+        groupe.push(jsonGroupe)
+    } catch (e) {
+        console.log(e)
+    }
 }
-
 data()
-
 // REQUETE GET FRONT STUDENTS ------------------------------------------------------------------------------------->
 
 app.get('/students', (req, res) => {
     try {
-        const template = fs.readFileSync('./student.ejs', 'utf-8')
-        var html = ejs.render(template, {
-            students: students
-        })
-        res.send(html)
+        async function fetch() {
+            try {
+                const template = fs.readFileSync('./student.ejs', 'utf-8')
+                var html = ejs.render(template, {
+                    students: students
+                })
+                res.send(html)
+            } catch(e){
+                console.log(e)
+            }
+        }
+        fetch()
     } catch (e) {
         console.log(e)
     }
@@ -54,14 +54,16 @@ app.get('/students', (req, res) => {
 app.post("/students", (req, res) => {
     async function post() {
         try {
-            var data = {
-                name: req.body.name.toUpperCase()
-            };
-            students[0].push({
-                name: req.body.name.toUpperCase()
-            })
-            await client.db("GroupGenerator").collection("Students").insertOne(data);
+            fetch('http://localhost:8080/students',{
+                method: "post",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify({
+                    name: req.body.name.toUpperCase()
+                })
+            }).then((res) => res.json())
+            .then(json => console.log(json))
             const template = fs.readFileSync('./student.ejs', 'utf-8')
+            students[0].push({name: req.body.name.toUpperCase()})
             var html = ejs.render(template, {
                 students: students
             })

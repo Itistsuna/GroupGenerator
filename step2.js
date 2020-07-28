@@ -5,9 +5,9 @@ const client = new MongoClient("mongodb://127.0.0.1:27017", {
   useUnifiedTopology: true,
 });
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
@@ -19,21 +19,19 @@ connect();
 // REQUETE POST  STUDENTS ---------------------------------------------------------------------------------->
 
 app.post("/students", (req, res) => {
-  async function post() {
-    try {
-      var data = req.body;
-      data.name.forEach((element) => {
-        envoie = {
-          name: element.toUpperCase(),
-        };
-        client.db("GroupGenerator").collection("Students").insertOne(envoie);
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    async function post() {
+      try {
+        await client.db("GroupGenerator").collection("Students").insertOne({
+          name: req.body.name.toUpperCase()
+        });
+  } catch (e) {
+    console.log(e);
   }
-  post();
-  res.send("Recues");
+}
+post();
+res.json({
+msg: "Recues"
+});
 });
 // REQUETE GET STUDENTS:name ----------------------------------------------------------------------------->
 
@@ -234,6 +232,6 @@ app.delete("/groups/:name", (req, res) => {
   effaccer();
 });
 
-app.listen(3000, function () {
-  console.log("listening on 3000");
+app.listen(8080, function () {
+  console.log("listening on 8080");
 });

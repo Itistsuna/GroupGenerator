@@ -45,6 +45,9 @@ body {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   color: white;
+}
+
+.container .ancre .none {
   text-decoration: none;
 }
 
