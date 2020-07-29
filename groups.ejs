@@ -18,14 +18,12 @@
     </div>
     <div class="box">
       <h2>Liste de groupes</h2>
-      <ul>
         <% groupe[0].forEach(element => { %>
           <li><%- element.name%></li>
       <% }); %>
-      </ul>
       <form action="/groups" method="post">
         <label for="groupe"></label>
-        <input type="text" name="grpName" placeholder="Nom du projet">
+        <input type="text" name="grpName" placeholder="Nom du projet" maxlength="15">
         <input type="number" name="nbrPersonnes" placeholder="Nombres des membres" />
         <input type="submit" value="Ajouter" />
       </form>
