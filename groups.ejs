@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group Generator : Liste de groupes</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Group Generator</h1>
+      
+      <div class="ancre">
+        <a href="/students" class="none">Etudiants</a>
+        <a href="/groups">Groupes</a>
+      </div>
+    </div>
+    <div class="box">
+      <h2>Liste de groupes</h2>
+      <%for( i=0 ; i < groupe.length; i++){%>
+        <h3><%- groupe[i][0].grpName%>(<%- groupe[i][0].nbrPersonnes %>)</h3>
+        <% groupe[i].forEach(element => { %>
+          <li><%- element.name[0]%> - <%- element.name[1]%></li>
+      <% });}%>
+      <form action="/groups" method="post">
+        <label for="groupe"></label>
+        <input type="text" name="grpName" placeholder="Nom du projet" maxlength="15">
+        <input type="number" name="nbrPersonnes" placeholder="Nombres des membres" />
+        <input type="submit" value="Ajouter" />
+      </form>
+    </div>
+  </body>
+</html>
