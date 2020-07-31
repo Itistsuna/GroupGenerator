@@ -72,7 +72,7 @@ async function data() {
 				}
 			}
 		}
-
+		groupetriée[0].splice(0,1)
 	} catch (e) {
 		console.log(e);
 	}
