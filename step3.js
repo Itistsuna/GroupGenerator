@@ -34,7 +34,7 @@ async function data() {
 			for (let index = 0; index < jsonGroupe.length; index++) {
 				if (jsonStudents.length == 0) {
 					console.log("Il n'y a plus d'étudiant");
-				} else if (jsonStudents[i].name == jsonGroupe[0].name[index]) {
+				} else if (jsonStudents[i].name == jsonGroupe[index].name[0]) {
 					jsonStudents.splice(i, 1);
 					if (i != 0) {
 						i = i - 1;
@@ -43,7 +43,7 @@ async function data() {
 						i = -1;
 						break;
 					}
-				} else if (jsonStudents[i].name == jsonGroupe[1].name[index]) {
+				} else if (jsonStudents[i].name == jsonGroupe[index].name[1]) {
 					jsonStudents.splice(i, 1);
 					if (i != 0) {
 						i = i - 1;
